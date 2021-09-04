@@ -16,6 +16,8 @@ class PinsController extends AbstractController
     {
         // find all result from repository
         $pins = $pinRepository->findAll();
+
+        // return the result on the browser by using twig
         return $this->render('pins/index.html.twig', compact('pins'));
     }
 }
