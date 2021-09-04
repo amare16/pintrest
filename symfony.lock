@@ -2,6 +2,9 @@
     "composer/package-versions-deprecated": {
         "version": "1.11.99.3"
     },
+    "dnoegel/php-xdg-base-dir": {
+        "version": "v0.1.1"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -88,6 +91,12 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "jakub-onderka/php-console-color": {
+        "version": "v0.2"
+    },
+    "jakub-onderka/php-console-highlighter": {
+        "version": "v0.4"
+    },
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
@@ -167,6 +176,9 @@
     },
     "psr/log": {
         "version": "1.1.4"
+    },
+    "psy/psysh": {
+        "version": "v0.9.12"
     },
     "sebastian/code-unit-reverse-lookup": {
         "version": "1.0.2"
@@ -573,6 +585,9 @@
     },
     "symfony/yaml": {
         "version": "v5.3.6"
+    },
+    "theofidry/psysh-bundle": {
+        "version": "v4.2.0"
     },
     "theseer/tokenizer": {
         "version": "1.2.1"
