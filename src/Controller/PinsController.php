@@ -7,8 +7,6 @@ use App\Form\PinType;
 use App\Repository\PinRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -57,7 +55,7 @@ class PinsController extends AbstractController
     }
 
     /**
-     * @Route("/pins/{id<[0-9]>}", name="app_pins_show", methods={"GET"})
+     * @Route("/pins/{id<\d+>}", name="app_pins_show", methods={"GET"})
      */
 
     public function show(Pin $pin) : Response
@@ -66,13 +64,12 @@ class PinsController extends AbstractController
     }
 
     /**
-     * @Route("/pins/{id<[0-9]>}/edit", name="app_pins_edit", methods={"GET", "PUT"})
+     * @Route("/pins/{id<\d+>}/edit", name="app_pins_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Pin $pin, EntityManagerInterface $em) : Response
     {
-        $form = $this->createForm(PinType::class, $pin, [
-            'method' => 'PUT'
-        ]);
+
+        $form = $this->createForm(PinType::class, $pin);
 
         $form->handleRequest($request);
 
@@ -86,6 +83,17 @@ class PinsController extends AbstractController
             'pin' => $pin,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/pins/{id<\d+>}/delete", name="app_pins_delete", methods={"GET", "POST"})
+     */
+    public function delete(Pin $pin, EntityManagerInterface $em) : Response
+    {
+        $em->remove($pin);
+        $em->flush();
+
+        return $this->redirectToRoute('app_home');
     }
 
 
