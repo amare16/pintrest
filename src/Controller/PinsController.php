@@ -50,7 +50,7 @@ class PinsController extends AbstractController
 
 
         return $this->render('pins/create.html.twig', [
-            'myForm' => $form->createView()
+            'form' => $form->createView()
         ]);
     }
 
@@ -88,10 +88,14 @@ class PinsController extends AbstractController
     /**
      * @Route("/pins/{id<\d+>}/delete", name="app_pins_delete", methods={"GET", "POST"})
      */
-    public function delete(Pin $pin, EntityManagerInterface $em) : Response
+    public function delete(Request $request, Pin $pin, EntityManagerInterface $em) : Response
     {
-        $em->remove($pin);
-        $em->flush();
+
+        if ($this->isCsrfTokenValid('pin_deletion_' . $pin->getId(), $request->request->get('crsf_token') )) {
+            $em->remove($pin);
+            $em->flush();
+        }
+
 
         return $this->redirectToRoute('app_home');
     }
