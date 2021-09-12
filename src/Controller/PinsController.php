@@ -64,12 +64,14 @@ class PinsController extends AbstractController
     }
 
     /**
-     * @Route("/pins/{id<\d+>}/edit", name="app_pins_edit", methods={"GET", "POST"})
+     * @Route("/pins/{id<\d+>}/edit", name="app_pins_edit", methods={"GET", "PUT"})
      */
     public function edit(Request $request, Pin $pin, EntityManagerInterface $em) : Response
     {
 
-        $form = $this->createForm(PinType::class, $pin);
+        $form = $this->createForm(PinType::class, $pin, [
+            'method' => 'PUT'
+        ]);
 
         $form->handleRequest($request);
 
@@ -85,8 +87,9 @@ class PinsController extends AbstractController
         ]);
     }
 
+// <<< It is not working >>> @Route("/pins/{id<\d+>}", name="app_pins_delete", methods={"GET", "DELETE"})
     /**
-     * @Route("/pins/{id<\d+>}/delete", name="app_pins_delete", methods={"GET", "POST"})
+     * @Route("/pins/{id<\d+>}", name="app_pins_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Pin $pin, EntityManagerInterface $em) : Response
     {
